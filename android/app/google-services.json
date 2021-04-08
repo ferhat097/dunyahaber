@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "534119603268",
+    "firebase_url": "https://dunya-d17b8.firebaseio.com",
+    "project_id": "dunya-d17b8",
+    "storage_bucket": "dunya-d17b8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:534119603268:android:bd3f42ecddc61da8",
+        "android_client_info": {
+          "package_name": "com.dunya"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "534119603268-voabvoe2iuvqt8dlqk5qr13hbom6nv0l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDH2XfykD_bj64l0UoebOha1AAOM0NYjY8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "534119603268-voabvoe2iuvqt8dlqk5qr13hbom6nv0l.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "534119603268-q9s43gabg55fool9n7qie232evkh75lo.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.dunya.dunyacom"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:534119603268:android:b4537ffeb2e40d5c837011",
+        "android_client_info": {
+          "package_name": "com.example.dunyahaber"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "534119603268-voabvoe2iuvqt8dlqk5qr13hbom6nv0l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDH2XfykD_bj64l0UoebOha1AAOM0NYjY8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "534119603268-voabvoe2iuvqt8dlqk5qr13hbom6nv0l.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "534119603268-q9s43gabg55fool9n7qie232evkh75lo.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.dunya.dunyacom"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
