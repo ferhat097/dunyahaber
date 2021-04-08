@@ -3,7 +3,7 @@ import 'package:dunyahaber/Service/dunya_api.dart';
 import 'package:dunyahaber/Models/post_model.dart';
 
 class AllNewsProvider extends ChangeNotifier {
-  List<Item> allNews = List<Item>();
+  List<Item> allNews = [];
   int skip = 0;
   Future<List<Item>> getAllNews() async {
     Posts post = await DunyaApiManager().getPostsWithPagination(0, 10);

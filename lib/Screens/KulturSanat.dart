@@ -109,10 +109,8 @@ class _KulturSanatState extends State<KulturSanat> {
                         child: InkWell(
                           borderRadius: BorderRadius.circular(5),
                           onTap: () {
-                            Provider.of<MainProvider>(context, listen: false)
-                                .globalKey
-                                .currentState
-                                .open(direction: InnerDrawerDirection.end);
+                           Provider.of<MainProvider>(context, listen: false)
+                                .bottomnavigate(17);
                           },
                           child: SizedBox(
                             height: 25,
@@ -178,6 +176,7 @@ class _KulturSanatState extends State<KulturSanat> {
                                                 MaterialPageRoute(
                                                   builder: (context) =>
                                                       DetailPage(
+                                                          type: 'Kultur Haberleri',
                                                     skip: value.skip,
                                                     index: index,
                                                     list: value.kulturSanat,

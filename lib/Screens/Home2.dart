@@ -5,6 +5,8 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:dunyahaber/Models/authors_model.dart';
 import 'package:dunyahaber/Models/post_model.dart' as PostModel;
 import 'package:dunyahaber/Providers/HomeProviderPublisher.dart';
+import 'package:dunyahaber/Screens/NotificationNews.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_html/style.dart';
@@ -37,12 +39,32 @@ class _Home2State extends State<Home2> with SingleTickerProviderStateMixin {
   TabController controller;
   @override
   void initState() {
+    FirebaseMessaging.instance.getInitialMessage().then((value) {
+      if (value != null) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => NotificationNews(
+                    id: value.data['id'],
+                  )));
+      }
+    });
+    FirebaseMessaging.onMessageOpenedApp.listen((event) async {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => NotificationNews(
+                    id: event.data['id'],
+                  )));
+    });
     Provider.of<MainProvider>(context, listen: false).getCurrentRate();
     Provider.of<HeadLineProvider>(context, listen: false).getElectedNews();
     Provider.of<AllNewsProvider>(context, listen: false).getAllNews();
     Provider.of<HomeProvider>(context, listen: false).getOneCikanlar();
     Provider.of<HomeProvider>(context, listen: false).getPublisher();
     Provider.of<GundemProvider>(context, listen: false).getGundem();
+    Provider.of<PiyasalarProvider>(context, listen: false).getPiyasalar();
+
     controller = TabController(length: 4, vsync: this);
     controller.addListener(listen);
     Provider.of<HomeProvider>(context, listen: false).setfirst(controller);
@@ -1513,7 +1535,6 @@ class _Home2State extends State<Home2> with SingleTickerProviderStateMixin {
   }
 
   Widget piyasalar(currentRate) {
-    Provider.of<PiyasalarProvider>(context, listen: false).getPiyasalar();
     return SafeArea(
       top: false,
       bottom: false,
@@ -1835,9 +1856,7 @@ class _Home2State extends State<Home2> with SingleTickerProviderStateMixin {
                     borderRadius: BorderRadius.circular(5),
                     onTap: () {
                       Provider.of<MainProvider>(context, listen: false)
-                          .globalKey
-                          .currentState
-                          .open(direction: InnerDrawerDirection.end);
+                          .bottomnavigate(17);
                     },
                     child: SizedBox(
                       height: 25,

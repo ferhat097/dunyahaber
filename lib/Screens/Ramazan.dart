@@ -110,10 +110,8 @@ class _RamazanState extends State<Ramazan> {
                         child: InkWell(
                           borderRadius: BorderRadius.circular(5),
                           onTap: () {
-                            Provider.of<MainProvider>(context, listen: false)
-                                .globalKey
-                                .currentState
-                                .open(direction: InnerDrawerDirection.end);
+                         Provider.of<MainProvider>(context, listen: false)
+                                .bottomnavigate(17);
                           },
                           child: SizedBox(
                             height: 25,
@@ -179,6 +177,7 @@ class _RamazanState extends State<Ramazan> {
                                                   MaterialPageRoute(
                                                     builder: (context) =>
                                                         DetailPage(
+                                                           type: 'Ramazan Haberleri',
                                                       skip: ramazanNews.skip,
                                                       index: index,
                                                       list:

@@ -4,6 +4,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dunyahaber/Providers/FinanceProvider.dart';
 import 'package:dunyahaber/Providers/HomeProvider.dart';
 import 'package:dunyahaber/Providers/MainProvider.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -60,12 +62,21 @@ import 'Service/utils.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  //initMessages();
+  String token =await FirebaseMessaging.instance.getToken();
+ print(token);
   Directory directory = await pathProvider.getApplicationDocumentsDirectory();
   Hive.init(directory.path);
   Hive.registerAdapter(SavedPostAdapter());
   await Hive.openBox<SavedPost>('posts');
   await SharedPreferences.getInstance();
   runApp(MyApp());
+}
+
+void initMessages() {
+  FirebaseMessaging.instance.requestPermission(
+      announcement: true, criticalAlert: true, provisional: true);
 }
 
 class MyApp extends StatelessWidget {
@@ -1014,176 +1025,6 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget innerDrawerRight() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 50),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: Colors.grey[900],
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
-          child: FutureBuilder(
-            future: Hive.openBox<SavedPost>('posts'),
-            builder: (context, snapshot) =>
-                ValueListenableBuilder<Box<SavedPost>>(
-              valueListenable: Hive.box<SavedPost>('posts').listenable(),
-              builder: (context, Box<SavedPost> value, child) {
-                if (value.isNotEmpty) {
-                  return ListView.builder(
-                    reverse: true,
-                    itemCount: value.values.length,
-                    itemBuilder: (context, index) {
-                      return FocusedMenuHolder(
-                        animateMenuItems: true,
-                        onPressed: () {},
-                        menuItems: [
-                          FocusedMenuItem(
-                              title: Text("Oku"),
-                              trailingIcon: Icon(Icons.read_more),
-                              backgroundColor: Colors.blue[300],
-                              onPressed: () {}),
-                          FocusedMenuItem(
-                              backgroundColor: Colors.amber,
-                              title: Text("Paylaş"),
-                              trailingIcon: Icon(Icons.share),
-                              onPressed: () {
-                                share(context, 'url', 'header');
-                              }),
-                          FocusedMenuItem(
-                            title: Text("Sil"),
-                            trailingIcon: Icon(Icons.delete),
-                            backgroundColor: Colors.red[200],
-                            onPressed: () {
-                              HiveController().deletePost(
-                                value.keyAt(index),
-                              );
-                            },
-                          ),
-                        ],
-                        child: Card(
-                          clipBehavior: Clip.antiAlias,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: Container(
-                            child: Column(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(5),
-                                    topRight: Radius.circular(5),
-                                  ),
-                                  child: CachedNetworkImage(
-                                    imageBuilder: (context, imageProvider) {
-                                      return Image(image: imageProvider);
-                                    },
-                                    imageUrl: value.getAt(index).imageUrl,
-                                    placeholder: (context, string) {
-                                      return Container(
-                                        color: Colors.grey[100],
-                                      );
-                                    },
-                                    errorWidget: (context, url, error) =>
-                                        Icon(Icons.error),
-                                  ),
-                                ),
-                                Container(
-                                  // height: 60,
-                                  width: double.infinity,
-                                  decoration:
-                                      BoxDecoration(color: Colors.grey[50]),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        height: 20,
-                                        width: double.infinity,
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 5),
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                height: 15,
-                                                width: 3,
-                                                color: Colors.red,
-                                              ),
-                                              Flexible(
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 2),
-                                                  child: Text(
-                                                    value.getAt(index).title,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    maxLines: 1,
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: Container(
-                                          width: double.infinity,
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 5),
-                                            child: Text(
-                                              value.getAt(index).summary,
-                                              maxLines: 4,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  );
-                } else {
-                  return Center(
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: Colors.blueGrey[50]),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: RichText(
-                          text: TextSpan(
-                            text: "Kaydedilen Haber Yok",
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.black87,
-                                fontFamily: 'Greycliff'),
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                }
-              },
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
   Widget mainScaffold(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
@@ -1208,11 +1049,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       .getCurrentRate(),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      return Container(
-                        height: 40,
-                        color: Color(0xFF131A20),
-                        child: Hero(
-                          tag: 'rate',
+                      return Hero(
+                        tag: 'rate',
+                                              child: Container(
+                          height: 40,
+                          color: Color(0xFF131A20),
                           child: CarouselSlider.builder(
                             itemCount: snapshot.data.length,
                             options: CarouselOptions(
@@ -1232,52 +1073,52 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                             itemBuilder: (context, index, index2) {
                               return Container(
-                                padding: EdgeInsets.symmetric(horizontal: 5),
-                                child: Row(
-                                  children: [
-                                    snapshot.data[index].status == null
-                                        ? Icon(Icons.arrow_forward,
-                                            color: Colors.blueGrey[200])
-                                        : snapshot.data[index].status
-                                            ? Icon(
-                                                Icons.arrow_upward,
-                                                color: Colors.green,
-                                              )
-                                            : Icon(
-                                                Icons.arrow_downward,
-                                                color: Colors.red,
-                                              ),
-                                    Flexible(
-                                      child: RichText(
-                                        maxLines: 1,
-                                        overflow: TextOverflow.visible,
-                                        text: TextSpan(
-                                          text: '${snapshot.data[index].name} ',
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontFamily: 'Greycliff'),
+                                  padding: EdgeInsets.symmetric(horizontal: 5),
+                                  child: Row(
+                                    children: [
+                                      snapshot.data[index].status == null
+                                          ? Icon(Icons.arrow_forward,
+                                              color: Colors.blueGrey[200])
+                                          : snapshot.data[index].status
+                                              ? Icon(
+                                                  Icons.arrow_upward,
+                                                  color: Colors.green,
+                                                )
+                                              : Icon(
+                                                  Icons.arrow_downward,
+                                                  color: Colors.red,
+                                                ),
+                                      Flexible(
+                                        child: RichText(
+                                          maxLines: 1,
+                                          overflow: TextOverflow.visible,
+                                          text: TextSpan(
+                                            text: '${snapshot.data[index].name} ',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontFamily: 'Greycliff'),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    Flexible(
-                                      child: RichText(
-                                        maxLines: 1,
-                                        overflow: TextOverflow.visible,
-                                        text: TextSpan(
-                                          text: snapshot.data[index].rate
-                                              .toStringAsFixed(2),
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: 'Greycliff'),
+                                      Flexible(
+                                        child: RichText(
+                                          maxLines: 1,
+                                          overflow: TextOverflow.visible,
+                                          text: TextSpan(
+                                            text: snapshot.data[index].rate
+                                                .toStringAsFixed(2),
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontFamily: 'Greycliff'),
+                                          ),
+                                          /* style:  TextStyle(
+                                       color: Colors.white, fontFamily: 'GreycliffCF'),*/
                                         ),
-                                        /* style:  TextStyle(
-                                     color: Colors.white, fontFamily: 'GreycliffCF'),*/
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              );
+                                    ],
+                                  ),
+                                );
                             },
                           ),
                         ),
@@ -1602,7 +1443,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
             onTapClose: true,
             leftChild: SafeArea(child: innerDrawerLeft()),
-            rightChild: SafeArea(child: innerDrawerRight()),
             key: globalKey,
             scaffold: mainScaffold(context),
           );

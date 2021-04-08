@@ -240,7 +240,7 @@ class _SearchState extends State<Search> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => DetailPage(
-                                    type: 'Spor Haberleri',
+                                    type: 'Arama',
                                     skip: value.skip,
                                     index: index,
                                     list: value.searchresult,

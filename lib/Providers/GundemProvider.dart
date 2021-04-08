@@ -3,7 +3,7 @@ import 'package:dunyahaber/Service/dunya_api.dart';
 import 'package:dunyahaber/Models/post_model.dart';
 
 class GundemProvider extends ChangeNotifier {
-  List<Item> gundemNews = List<Item>();
+  List<Item> gundemNews =[];
   String gundemId = '5fa6ea2f1913fb1ae0497ab7';
   int skipgundem = 0;
 

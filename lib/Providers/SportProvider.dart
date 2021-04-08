@@ -3,7 +3,7 @@ import 'package:dunyahaber/Service/dunya_api.dart';
 import 'package:dunyahaber/Models/post_model.dart';
 
 class SportProvider extends ChangeNotifier {
-  List<Item> aa = List<Item>();
+  List<Item> aa = [];
   int skip = 0;
   String id = '5fa6ea2f1913fb1ae0497abf';
   List<Item> get getspor => aa;

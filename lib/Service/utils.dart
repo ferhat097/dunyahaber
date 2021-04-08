@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share/share.dart';
 
-
 share(BuildContext context, String url, String content) async {
   await Share.share(url, subject: content);
 }

@@ -40,11 +40,11 @@ class _SportState extends State<Sport> {
               children: [
                 Row(
                   children: [
-                    SizedBox(
-                        height: 45,
-                        width: 45,
-                        child: Hero(
-                          tag: 'dot',
+                    Hero(
+                      tag: 'back',
+                      child: SizedBox(
+                          height: 45,
+                          width: 45,
                           child: Material(
                             color: Colors.transparent,
                             child: InkWell(
@@ -58,12 +58,12 @@ class _SportState extends State<Sport> {
                               },
                               child: Image.asset('assets/dot.png'),
                             ),
-                          ),
-                        )),
+                          )),
+                    ),
                     Padding(
                       padding: const EdgeInsets.only(bottom: 4),
                       child: Hero(
-                        tag: 'dunya',
+                        tag: 'logo',
                         child: Container(
                           height: 45,
                           width: 100,
@@ -116,13 +116,10 @@ class _SportState extends State<Sport> {
                             Provider.of<MainProvider>(context, listen: false)
                                 .bottomnavigate(17);
                           },
-                          child: Hero(
-                            tag: 'fav',
-                            child: SizedBox(
-                                height: 25,
-                                width: 25,
-                                child: Image.asset('assets/fav.png')),
-                          ),
+                          child: SizedBox(
+                              height: 25,
+                              width: 25,
+                              child: Image.asset('assets/fav.png')),
                         ),
                       )
                     ],
@@ -175,6 +172,7 @@ class _SportState extends State<Sport> {
                                   padding: EdgeInsets.all(8.0),
                                   child: GestureDetector(
                                     onTap: () {
+                                      print(value.aa.length);
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -201,15 +199,14 @@ class _SportState extends State<Sport> {
                                                         null
                                                     ? Stack(
                                                         children: [
-                                                          SizedBox(
-                                                            height: 200,
-                                                            width:
-                                                                double.infinity,
-                                                            child: FittedBox(
-                                                              fit: BoxFit.fill,
-                                                              child: Hero(
-                                                                tag:
-                                                                    'photo$index',
+                                                          Hero(
+                                                            tag: 'photos$index',
+                                                                                                                      child: SizedBox(
+                                                              height: 200,
+                                                              width:
+                                                                  double.infinity,
+                                                              child: FittedBox(
+                                                                fit: BoxFit.fill,
                                                                 child: Image
                                                                     .network(value
                                                                         .aa[index]
@@ -236,27 +233,24 @@ class _SportState extends State<Sport> {
                                                                   horizontal: 8,
                                                                   vertical: 4,
                                                                 ),
-                                                                child: Hero(
-                                                                  tag:
-                                                                      'date$index',
-                                                                  child: Text(
-                                                                    value.aa[index].diffrence >
-                                                                            1
-                                                                        ? value.aa[index].diffrence <
-                                                                                1440
-                                                                            ? value.aa[index].diffrence < 60
-                                                                                ? '${DateTime.now().difference(value.aa[index].dateTime).inMinutes.toString()} dakika önce'
-                                                                                : '${DateTime.now().difference(value.aa[index].dateTime).inHours.toString()} saat önce'
-                                                                            : '${DateTime.now().difference(value.aa[index].dateTime).inDays.toString()} gün önce'
-                                                                        : 'Şimdi',
-                                                                    style: TextStyle(
-                                                                        fontSize:
-                                                                            12,
-                                                                        color: Colors
-                                                                            .white,
-                                                                        fontWeight:
-                                                                            FontWeight.w500),
-                                                                  ),
+                                                                child: Text(
+                                                                  value.aa[index].diffrence >
+                                                                          1
+                                                                      ? value.aa[index].diffrence <
+                                                                              1440
+                                                                          ? value.aa[index].diffrence < 60
+                                                                              ? '${DateTime.now().difference(value.aa[index].dateTime).inMinutes.toString()} dakika önce'
+                                                                              : '${DateTime.now().difference(value.aa[index].dateTime).inHours.toString()} saat önce'
+                                                                          : '${DateTime.now().difference(value.aa[index].dateTime).inDays.toString()} gün önce'
+                                                                      : 'Şimdi',
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          12,
+                                                                      color: Colors
+                                                                          .white,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500),
                                                                 ),
                                                               ),
                                                             ),

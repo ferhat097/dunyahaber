@@ -111,9 +111,7 @@ class _SaglikState extends State<Saglik> {
                           borderRadius: BorderRadius.circular(5),
                           onTap: () {
                             Provider.of<MainProvider>(context, listen: false)
-                                .globalKey
-                                .currentState
-                                .open(direction: InnerDrawerDirection.end);
+                                .bottomnavigate(17);
                           },
                           child: SizedBox(
                             height: 25,
@@ -175,132 +173,137 @@ class _SaglikState extends State<Saglik> {
                                   child: GestureDetector(
                                     onTap: () {
                                       Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        DetailPage(
-                                                      skip: value.skip,
-                                                      index: index,
-                                                      list: value.saglikNews,
-                                                      currentRate: currentRate,
-                                                    ),
-                                                  ),
-                                                ); 
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => DetailPage(
+                                            type: 'Saglik Haberleri',
+                                            skip: value.skip,
+                                            index: index,
+                                            list: value.saglikNews,
+                                            currentRate: currentRate,
+                                          ),
+                                        ),
+                                      );
                                     },
-                                                                      child: Card(
+                                    child: Card(
                                       elevation: 0,
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
                                           Container(
-                                            child: value.saglikNews[index].image
-                                                        .url !=
-                                                    null
-                                                ? Stack(
-                                                    children: [
-                                                      SizedBox(
-                                                        height: 200,
-                                                        width: double.infinity,
-                                                        child: FittedBox(
-                                                          fit: BoxFit.fill,
-                                                          child: Image.network(
-                                                              value
-                                                                  .saglikNews[
-                                                                      index]
-                                                                  .image
-                                                                  .url),
-                                                        ),
-                                                      ),
-                                                      Positioned(
-                                                        top: 7,
-                                                        left: 7,
-                                                        child: Container(
-                                                          decoration: BoxDecoration(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .all(Radius
-                                                                          .circular(
-                                                                              3)),
-                                                              color: Colors.red),
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .symmetric(
-                                                              horizontal: 8,
-                                                              vertical: 4,
-                                                            ),
-                                                            child: Text(
-                                                              value
-                                                                          .saglikNews[
-                                                                              index]
-                                                                          .diffrence >
-                                                                      1
-                                                                  ? value.saglikNews[index]
-                                                                              .diffrence <
-                                                                          1440
-                                                                      ? value.saglikNews[index].diffrence < 60
-                                                                          ? '${DateTime.now().difference(value.saglikNews[index].dateTime).inMinutes.toString()} dakika önce'
-                                                                          : '${DateTime.now().difference(value.saglikNews[index].dateTime).inHours.toString()} saat önce'
-                                                                      : '${DateTime.now().difference(value.saglikNews[index].dateTime).inDays.toString()} gün önce'
-                                                                  : 'Şimdi',
-                                                              style: TextStyle(
-                                                                fontSize: 12,
-                                                                color:
-                                                                    Colors.white,
-                                                              ),
+                                            child:
+                                                value.saglikNews[index].image
+                                                            .url !=
+                                                        null
+                                                    ? Stack(
+                                                        children: [
+                                                          SizedBox(
+                                                            height: 200,
+                                                            width:
+                                                                double.infinity,
+                                                            child: FittedBox(
+                                                              fit: BoxFit.fill,
+                                                              child: Image
+                                                                  .network(value
+                                                                      .saglikNews[
+                                                                          index]
+                                                                      .image
+                                                                      .url),
                                                             ),
                                                           ),
-                                                        ),
-                                                      ),
-                                                      Positioned(
-                                                        right: 7,
-                                                        top: 7,
-                                                        child: SizedBox(
-                                                          child: Material(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(30),
-                                                            elevation: 0.1,
-                                                            shadowColor:
-                                                                Colors.black12,
-                                                            color: Colors
-                                                                .transparent,
-                                                            child: InkWell(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          30),
-                                                              onTap: () {
-                                                                share(
-                                                                    context,
-                                                                    value
-                                                                        .saglikNews[
-                                                                            index]
-                                                                        .link,
-                                                                    value
-                                                                        .saglikNews[
-                                                                            index]
-                                                                        .title);
-                                                              },
+                                                          Positioned(
+                                                            top: 7,
+                                                            left: 7,
+                                                            child: Container(
+                                                              decoration: BoxDecoration(
+                                                                  borderRadius:
+                                                                      BorderRadius.all(
+                                                                          Radius.circular(
+                                                                              3)),
+                                                                  color: Colors
+                                                                      .red),
                                                               child: Padding(
                                                                 padding:
                                                                     const EdgeInsets
-                                                                        .all(8.0),
-                                                                child: SizedBox(
-                                                                  height: 30,
-                                                                  width: 30,
-                                                                  child: Image.asset(
-                                                                      'assets/shareicon.png'),
+                                                                        .symmetric(
+                                                                  horizontal: 8,
+                                                                  vertical: 4,
+                                                                ),
+                                                                child: Text(
+                                                                  value.saglikNews[index].diffrence >
+                                                                          1
+                                                                      ? value.saglikNews[index].diffrence <
+                                                                              1440
+                                                                          ? value.saglikNews[index].diffrence < 60
+                                                                              ? '${DateTime.now().difference(value.saglikNews[index].dateTime).inMinutes.toString()} dakika önce'
+                                                                              : '${DateTime.now().difference(value.saglikNews[index].dateTime).inHours.toString()} saat önce'
+                                                                          : '${DateTime.now().difference(value.saglikNews[index].dateTime).inDays.toString()} gün önce'
+                                                                      : 'Şimdi',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        12,
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ),
                                                           ),
-                                                        ),
+                                                          Positioned(
+                                                            right: 7,
+                                                            top: 7,
+                                                            child: SizedBox(
+                                                              child: Material(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            30),
+                                                                elevation: 0.1,
+                                                                shadowColor:
+                                                                    Colors
+                                                                        .black12,
+                                                                color: Colors
+                                                                    .transparent,
+                                                                child: InkWell(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              30),
+                                                                  onTap: () {
+                                                                    share(
+                                                                        context,
+                                                                        value
+                                                                            .saglikNews[
+                                                                                index]
+                                                                            .link,
+                                                                        value
+                                                                            .saglikNews[index]
+                                                                            .title);
+                                                                  },
+                                                                  child:
+                                                                      Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            8.0),
+                                                                    child:
+                                                                        SizedBox(
+                                                                      height:
+                                                                          30,
+                                                                      width: 30,
+                                                                      child: Image
+                                                                          .asset(
+                                                                              'assets/shareicon.png'),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          )
+                                                        ],
                                                       )
-                                                    ],
-                                                  )
-                                                : Container(),
+                                                    : Container(),
                                           ),
                                           Padding(
                                             padding:
@@ -308,7 +311,8 @@ class _SaglikState extends State<Saglik> {
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
-                                                  MainAxisAlignment.spaceBetween,
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
                                               children: [
                                                 Flexible(
                                                   child: Row(
@@ -324,7 +328,8 @@ class _SaglikState extends State<Saglik> {
                                                         child: Container(
                                                           padding: EdgeInsets
                                                               .symmetric(
-                                                                  horizontal: 6),
+                                                                  horizontal:
+                                                                      6),
                                                           child: Container(
                                                             //width: double.infinity,
                                                             child: Text(
@@ -333,8 +338,8 @@ class _SaglikState extends State<Saglik> {
                                                                   TextOverflow
                                                                       .ellipsis,
                                                               style: TextStyle(
-                                                                  color:
-                                                                      Colors.red,
+                                                                  color: Colors
+                                                                      .red,
                                                                   fontSize: 18,
                                                                   fontWeight:
                                                                       FontWeight
@@ -347,8 +352,9 @@ class _SaglikState extends State<Saglik> {
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: const EdgeInsets.only(
-                                                      right: 8.0),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 8.0),
                                                   child: Material(
                                                     color: Colors.transparent,
                                                     child: InkWell(
@@ -398,7 +404,8 @@ class _SaglikState extends State<Saglik> {
                                                 style: TextStyle(
                                                     color: Colors.black,
                                                     fontSize: 17,
-                                                    fontWeight: FontWeight.w500),
+                                                    fontWeight:
+                                                        FontWeight.w500),
                                               ),
                                             ),
                                           ),
@@ -407,17 +414,18 @@ class _SaglikState extends State<Saglik> {
                                                 horizontal: 11, vertical: 7),
                                             child: Container(
                                               child: Text(
-                                                value.saglikNews[index].summary ??
+                                                value.saglikNews[index]
+                                                        .summary ??
                                                     ' ',
                                                 //maxLines: 2,
                                                 style: TextStyle(
                                                     color: Colors.black,
                                                     fontSize: 16,
-                                                    fontWeight: FontWeight.w400),
+                                                    fontWeight:
+                                                        FontWeight.w400),
                                               ),
                                             ),
                                           ),
-                                          
                                         ],
                                       ),
                                     ),

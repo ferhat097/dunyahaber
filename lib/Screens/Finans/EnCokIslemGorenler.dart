@@ -736,7 +736,7 @@ class _EnCokIslemGorenlerState extends State<EnCokIslemGorenler>
                                                 ? Colors.red
                                                 : Colors.green,
                                             fontSize: 18,
-                                            fontWeight: FontWeight.w500),
+                                            fontWeight: FontWeight.w700),
                                       ),
                                     ],
                                   ),
@@ -763,7 +763,7 @@ class _EnCokIslemGorenlerState extends State<EnCokIslemGorenler>
                                                 ? Colors.red
                                                 : Colors.green,
                                             fontSize: 18,
-                                            fontWeight: FontWeight.w500),
+                                            fontWeight: FontWeight.w700),
                                       ),
                                     ],
                                   ),
@@ -791,7 +791,7 @@ class _EnCokIslemGorenlerState extends State<EnCokIslemGorenler>
                                                 ? Colors.red
                                                 : Colors.green,
                                             fontSize: 18,
-                                            fontWeight: FontWeight.w500),
+                                            fontWeight: FontWeight.w700),
                                       ),
                                     ],
                                   ),
@@ -819,7 +819,7 @@ class _EnCokIslemGorenlerState extends State<EnCokIslemGorenler>
                                                 ? Colors.red
                                                 : Colors.green,
                                             fontSize: 18,
-                                            fontWeight: FontWeight.w500),
+                                            fontWeight: FontWeight.w700),
                                       ),
                                     ],
                                   ),
@@ -847,35 +847,7 @@ class _EnCokIslemGorenlerState extends State<EnCokIslemGorenler>
                                                 ? Colors.red
                                                 : Colors.green,
                                             fontSize: 18,
-                                            fontWeight: FontWeight.w500),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Card(
-                                elevation: 0,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text('Net Profit',
-                                          style: TextStyle(
-                                              fontSize: 17,
-                                              fontWeight: FontWeight.w400)),
-                                      Text(
-                                        bist.bitsStats[index].netProfit
-                                            .toString(),
-                                        style: TextStyle(
-                                            color: bist.bitsStats[index]
-                                                    .netProfit.isNegative
-                                                ? Colors.red
-                                                : Colors.green,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w500),
+                                            fontWeight: FontWeight.w700),
                                       ),
                                     ],
                                   ),
@@ -905,8 +877,7 @@ class _EnCokIslemGorenlerState extends State<EnCokIslemGorenler>
                                                 children: [
                                                   Padding(
                                                     padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
+                                                        const EdgeInsets.all(8),
                                                     child: Container(
                                                       decoration: BoxDecoration(
                                                           borderRadius:
@@ -922,14 +893,16 @@ class _EnCokIslemGorenlerState extends State<EnCokIslemGorenler>
                                                       child: Padding(
                                                         padding:
                                                             const EdgeInsets
-                                                                .all(8.0),
+                                                                .all(5),
                                                         child: Text(
                                                           '${bist.bitsStats[index].dailyChangePercentage.toString()}%',
                                                           style: TextStyle(
                                                               fontSize: 16,
                                                               fontWeight:
                                                                   FontWeight
-                                                                      .bold),
+                                                                      .bold,
+                                                              color:
+                                                                  Colors.white),
                                                         ),
                                                       ),
                                                     ),
@@ -967,7 +940,7 @@ class _EnCokIslemGorenlerState extends State<EnCokIslemGorenler>
                                                             const EdgeInsets
                                                                 .all(8.0),
                                                         child: Text(
-                                                            'Gunluk Miktar',
+                                                            'Günlük Miktar',
                                                             style: TextStyle(
                                                                 fontSize: 17,
                                                                 fontWeight:
@@ -1012,7 +985,7 @@ class _EnCokIslemGorenlerState extends State<EnCokIslemGorenler>
                                                             const EdgeInsets
                                                                 .all(8.0),
                                                         child: Text(
-                                                            'Gunluk Hacim',
+                                                            'Günlük Hacim',
                                                             style: TextStyle(
                                                                 fontSize: 17,
                                                                 fontWeight:
@@ -1057,7 +1030,7 @@ class _EnCokIslemGorenlerState extends State<EnCokIslemGorenler>
                                                             const EdgeInsets
                                                                 .all(8.0),
                                                         child: Text(
-                                                            'Gunluk Degisim',
+                                                            'Günlük Değişim',
                                                             style: TextStyle(
                                                                 fontSize: 17,
                                                                 fontWeight:
@@ -1102,7 +1075,7 @@ class _EnCokIslemGorenlerState extends State<EnCokIslemGorenler>
                                                             const EdgeInsets
                                                                 .all(8.0),
                                                         child: Text(
-                                                            'Gunluk En Yuksek',
+                                                            'Günlük En Yüksek',
                                                             style: TextStyle(
                                                                 fontSize: 17,
                                                                 fontWeight:
@@ -1147,7 +1120,7 @@ class _EnCokIslemGorenlerState extends State<EnCokIslemGorenler>
                                                             const EdgeInsets
                                                                 .all(8.0),
                                                         child: Text(
-                                                            'Gunluk En Dusuk',
+                                                            'Günlük En Düşük',
                                                             style: TextStyle(
                                                                 fontSize: 17,
                                                                 fontWeight:
@@ -1204,7 +1177,7 @@ class _EnCokIslemGorenlerState extends State<EnCokIslemGorenler>
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Text('Haftalik İstatistikler',
+                                              Text('Haftalık İstatistikler',
                                                   style: TextStyle(
                                                       fontSize: 17,
                                                       fontWeight:
@@ -1230,14 +1203,16 @@ class _EnCokIslemGorenlerState extends State<EnCokIslemGorenler>
                                                       child: Padding(
                                                         padding:
                                                             const EdgeInsets
-                                                                .all(8.0),
+                                                                .all(5),
                                                         child: Text(
                                                           '${bist.bitsStats[index].weeklyChangePercentage.toString()}%',
                                                           style: TextStyle(
                                                               fontSize: 16,
                                                               fontWeight:
                                                                   FontWeight
-                                                                      .bold),
+                                                                      .bold,
+                                                              color:
+                                                                  Colors.white),
                                                         ),
                                                       ),
                                                     ),
@@ -1264,6 +1239,7 @@ class _EnCokIslemGorenlerState extends State<EnCokIslemGorenler>
                                             child: Column(
                                               children: [
                                                 Card(
+                                                  elevation: 0,
                                                   child: Row(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
@@ -1274,7 +1250,7 @@ class _EnCokIslemGorenlerState extends State<EnCokIslemGorenler>
                                                             const EdgeInsets
                                                                 .all(8.0),
                                                         child: Text(
-                                                            'Haftalik Degisim',
+                                                            'Haftalık Değişim',
                                                             style: TextStyle(
                                                                 fontSize: 17,
                                                                 fontWeight:
@@ -1319,7 +1295,7 @@ class _EnCokIslemGorenlerState extends State<EnCokIslemGorenler>
                                                             const EdgeInsets
                                                                 .all(8.0),
                                                         child: Text(
-                                                          'Haftalik En Yuksek',
+                                                          'Haftalık En Yüksek',
                                                           style: TextStyle(
                                                               fontSize: 17,
                                                               fontWeight:
@@ -1365,7 +1341,7 @@ class _EnCokIslemGorenlerState extends State<EnCokIslemGorenler>
                                                             const EdgeInsets
                                                                 .all(8.0),
                                                         child: Text(
-                                                          'Haftalik En Dusuk',
+                                                          'Haftalık En Düşük',
                                                           style: TextStyle(
                                                               fontSize: 17,
                                                               fontWeight:
@@ -1424,7 +1400,7 @@ class _EnCokIslemGorenlerState extends State<EnCokIslemGorenler>
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                'Aylik İstatistikler',
+                                                'Aylık İstatistikler',
                                                 style: TextStyle(
                                                     fontSize: 17,
                                                     fontWeight:
@@ -1451,14 +1427,16 @@ class _EnCokIslemGorenlerState extends State<EnCokIslemGorenler>
                                                       child: Padding(
                                                         padding:
                                                             const EdgeInsets
-                                                                .all(8.0),
+                                                                .all(5.0),
                                                         child: Text(
                                                           '${bist.bitsStats[index].monthlyChangePercentage.toString()}%',
                                                           style: TextStyle(
                                                               fontSize: 16,
                                                               fontWeight:
                                                                   FontWeight
-                                                                      .bold),
+                                                                      .bold,
+                                                              color:
+                                                                  Colors.white),
                                                         ),
                                                       ),
                                                     ),
@@ -1496,7 +1474,7 @@ class _EnCokIslemGorenlerState extends State<EnCokIslemGorenler>
                                                             const EdgeInsets
                                                                 .all(8.0),
                                                         child: Text(
-                                                          'Aylik Degisim',
+                                                          'Aylık Değişim',
                                                           style: TextStyle(
                                                               fontSize: 17,
                                                               fontWeight:
@@ -1542,7 +1520,7 @@ class _EnCokIslemGorenlerState extends State<EnCokIslemGorenler>
                                                             const EdgeInsets
                                                                 .all(8.0),
                                                         child: Text(
-                                                          'Aylik En Yuksek',
+                                                          'Aylık En Yüksek',
                                                           style: TextStyle(
                                                               fontSize: 17,
                                                               fontWeight:
@@ -1588,7 +1566,7 @@ class _EnCokIslemGorenlerState extends State<EnCokIslemGorenler>
                                                             const EdgeInsets
                                                                 .all(8.0),
                                                         child: Text(
-                                                          'Aylik En Dusuk',
+                                                          'Aylık En Düşük',
                                                           style: TextStyle(
                                                               fontSize: 17,
                                                               fontWeight:
@@ -1647,7 +1625,7 @@ class _EnCokIslemGorenlerState extends State<EnCokIslemGorenler>
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                'Yillik İstatistikler',
+                                                'Yıllık İstatistikler',
                                                 style: TextStyle(
                                                     fontSize: 17,
                                                     fontWeight:
@@ -1674,14 +1652,16 @@ class _EnCokIslemGorenlerState extends State<EnCokIslemGorenler>
                                                       child: Padding(
                                                         padding:
                                                             const EdgeInsets
-                                                                .all(8.0),
+                                                                .all(5.0),
                                                         child: Text(
                                                           '${bist.bitsStats[index].yearlyChangePercentage.toString()}%',
                                                           style: TextStyle(
                                                               fontSize: 16,
                                                               fontWeight:
                                                                   FontWeight
-                                                                      .bold),
+                                                                      .bold,
+                                                              color:
+                                                                  Colors.white),
                                                         ),
                                                       ),
                                                     ),
@@ -1719,7 +1699,7 @@ class _EnCokIslemGorenlerState extends State<EnCokIslemGorenler>
                                                             const EdgeInsets
                                                                 .all(8.0),
                                                         child: Text(
-                                                          'Yillik Degisim',
+                                                          'Yıllık Değişim',
                                                           style: TextStyle(
                                                               fontSize: 17,
                                                               fontWeight:

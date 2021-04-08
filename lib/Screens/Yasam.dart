@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import '../Service/utils.dart';
+import 'SavedNews.dart';
 import 'Search.dart';
 
 class Yasam extends StatefulWidget {
@@ -108,10 +109,8 @@ class _YasamState extends State<Yasam> {
                         child: InkWell(
                           borderRadius: BorderRadius.circular(5),
                           onTap: () {
-                            Provider.of<MainProvider>(context, listen: false)
-                                .globalKey
-                                .currentState
-                                .open(direction: InnerDrawerDirection.end);
+                           Provider.of<MainProvider>(context, listen: false)
+                                .bottomnavigate(17);
                           },
                           child: SizedBox(
                             height: 25,
@@ -172,133 +171,138 @@ class _YasamState extends State<Yasam> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: GestureDetector(
                                     onTap: () {
-                                       Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      DetailPage(
-                                                    skip: value.skip,
-                                                    index: index,
-                                                    list: value.yasamNews,
-                                                    currentRate: currentRate,
-                                                  ),
-                                                ),
-                                              );
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => DetailPage(
+                                             type: 'Yasam Haberleri',
+                                            skip: value.skip,
+                                            index: index,
+                                            list: value.yasamNews,
+                                            currentRate: currentRate,
+                                          ),
+                                        ),
+                                      );
                                     },
-                                               child: Card(
+                                    child: Card(
                                       elevation: 0,
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
                                           Container(
-                                            child: value.yasamNews[index].image
-                                                        .url !=
-                                                    null
-                                                ? Stack(
-                                                    children: [
-                                                      SizedBox(
-                                                        height: 200,
-                                                        width: double.infinity,
-                                                        child: FittedBox(
-                                                          fit: BoxFit.fill,
-                                                          child: Image.network(
-                                                              value
-                                                                  .yasamNews[
-                                                                      index]
-                                                                  .image
-                                                                  .url),
-                                                        ),
-                                                      ),
-                                                      Positioned(
-                                                        top: 7,
-                                                        left: 7,
-                                                        child: Container(
-                                                          decoration: BoxDecoration(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .all(Radius
-                                                                          .circular(
-                                                                              3)),
-                                                              color: Colors.red),
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .symmetric(
-                                                              horizontal: 8,
-                                                              vertical: 4,
-                                                            ),
-                                                            child: Text(
-                                                              value
-                                                                          .yasamNews[
-                                                                              index]
-                                                                          .diffrence >
-                                                                      1
-                                                                  ? value.yasamNews[index]
-                                                                              .diffrence <
-                                                                          1440
-                                                                      ? value.yasamNews[index].diffrence < 60
-                                                                          ? '${DateTime.now().difference(value.yasamNews[index].dateTime).inMinutes.toString()} dakika önce'
-                                                                          : '${DateTime.now().difference(value.yasamNews[index].dateTime).inHours.toString()} saat önce'
-                                                                      : '${DateTime.now().difference(value.yasamNews[index].dateTime).inDays.toString()} gün önce'
-                                                                  : 'Şimdi',
-                                                              style: TextStyle(
-                                                                fontSize: 12,
-                                                                color:
-                                                                    Colors.white,
-                                                              ),
+                                            child:
+                                                value.yasamNews[index].image
+                                                            .url !=
+                                                        null
+                                                    ? Stack(
+                                                        children: [
+                                                          SizedBox(
+                                                            height: 200,
+                                                            width:
+                                                                double.infinity,
+                                                            child: FittedBox(
+                                                              fit: BoxFit.fill,
+                                                              child: Image
+                                                                  .network(value
+                                                                      .yasamNews[
+                                                                          index]
+                                                                      .image
+                                                                      .url),
                                                             ),
                                                           ),
-                                                        ),
-                                                      ),
-                                                      Positioned(
-                                                        right: 7,
-                                                        top: 7,
-                                                        child: SizedBox(
-                                                          child: Material(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(30),
-                                                            elevation: 0.1,
-                                                            shadowColor:
-                                                                Colors.black12,
-                                                            color: Colors
-                                                                .transparent,
-                                                            child: InkWell(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          30),
-                                                              onTap: () {
-                                                                share(
-                                                                    context,
-                                                                    value
-                                                                        .yasamNews[
-                                                                            index]
-                                                                        .link,
-                                                                    value
-                                                                        .yasamNews[
-                                                                            index]
-                                                                        .title);
-                                                              },
+                                                          Positioned(
+                                                            top: 7,
+                                                            left: 7,
+                                                            child: Container(
+                                                              decoration: BoxDecoration(
+                                                                  borderRadius:
+                                                                      BorderRadius.all(
+                                                                          Radius.circular(
+                                                                              3)),
+                                                                  color: Colors
+                                                                      .red),
                                                               child: Padding(
                                                                 padding:
                                                                     const EdgeInsets
-                                                                        .all(8.0),
-                                                                child: SizedBox(
-                                                                  height: 30,
-                                                                  width: 30,
-                                                                  child: Image.asset(
-                                                                      'assets/shareicon.png'),
+                                                                        .symmetric(
+                                                                  horizontal: 8,
+                                                                  vertical: 4,
+                                                                ),
+                                                                child: Text(
+                                                                  value.yasamNews[index].diffrence >
+                                                                          1
+                                                                      ? value.yasamNews[index].diffrence <
+                                                                              1440
+                                                                          ? value.yasamNews[index].diffrence < 60
+                                                                              ? '${DateTime.now().difference(value.yasamNews[index].dateTime).inMinutes.toString()} dakika önce'
+                                                                              : '${DateTime.now().difference(value.yasamNews[index].dateTime).inHours.toString()} saat önce'
+                                                                          : '${DateTime.now().difference(value.yasamNews[index].dateTime).inDays.toString()} gün önce'
+                                                                      : 'Şimdi',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        12,
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ),
                                                           ),
-                                                        ),
+                                                          Positioned(
+                                                            right: 7,
+                                                            top: 7,
+                                                            child: SizedBox(
+                                                              child: Material(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            30),
+                                                                elevation: 0.1,
+                                                                shadowColor:
+                                                                    Colors
+                                                                        .black12,
+                                                                color: Colors
+                                                                    .transparent,
+                                                                child: InkWell(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              30),
+                                                                  onTap: () {
+                                                                    share(
+                                                                        context,
+                                                                        value
+                                                                            .yasamNews[
+                                                                                index]
+                                                                            .link,
+                                                                        value
+                                                                            .yasamNews[index]
+                                                                            .title);
+                                                                  },
+                                                                  child:
+                                                                      Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            8.0),
+                                                                    child:
+                                                                        SizedBox(
+                                                                      height:
+                                                                          30,
+                                                                      width: 30,
+                                                                      child: Image
+                                                                          .asset(
+                                                                              'assets/shareicon.png'),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          )
+                                                        ],
                                                       )
-                                                    ],
-                                                  )
-                                                : Container(),
+                                                    : Container(),
                                           ),
                                           Padding(
                                             padding:
@@ -306,7 +310,8 @@ class _YasamState extends State<Yasam> {
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
-                                                  MainAxisAlignment.spaceBetween,
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
                                               children: [
                                                 Flexible(
                                                   child: Row(
@@ -322,7 +327,8 @@ class _YasamState extends State<Yasam> {
                                                         child: Container(
                                                           padding: EdgeInsets
                                                               .symmetric(
-                                                                  horizontal: 6),
+                                                                  horizontal:
+                                                                      6),
                                                           child: Container(
                                                             //width: double.infinity,
                                                             child: Text(
@@ -331,8 +337,8 @@ class _YasamState extends State<Yasam> {
                                                                   TextOverflow
                                                                       .ellipsis,
                                                               style: TextStyle(
-                                                                  color:
-                                                                      Colors.red,
+                                                                  color: Colors
+                                                                      .red,
                                                                   fontSize: 18,
                                                                   fontWeight:
                                                                       FontWeight
@@ -345,8 +351,9 @@ class _YasamState extends State<Yasam> {
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: const EdgeInsets.only(
-                                                      right: 8.0),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 8.0),
                                                   child: Material(
                                                     color: Colors.transparent,
                                                     child: InkWell(
@@ -396,7 +403,8 @@ class _YasamState extends State<Yasam> {
                                                 style: TextStyle(
                                                     color: Colors.black,
                                                     fontSize: 17,
-                                                    fontWeight: FontWeight.w500),
+                                                    fontWeight:
+                                                        FontWeight.w500),
                                               ),
                                             ),
                                           ),
@@ -405,13 +413,15 @@ class _YasamState extends State<Yasam> {
                                                 horizontal: 11, vertical: 7),
                                             child: Container(
                                               child: Text(
-                                                value.yasamNews[index].summary ??
+                                                value.yasamNews[index]
+                                                        .summary ??
                                                     ' ',
                                                 //maxLines: 2,
                                                 style: TextStyle(
                                                     color: Colors.black,
                                                     fontSize: 16,
-                                                    fontWeight: FontWeight.w400),
+                                                    fontWeight:
+                                                        FontWeight.w400),
                                               ),
                                             ),
                                           ),

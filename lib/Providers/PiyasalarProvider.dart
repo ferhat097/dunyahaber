@@ -3,7 +3,7 @@ import 'package:dunyahaber/Service/dunya_api.dart';
 import 'package:dunyahaber/Models/headline_item.dart' as HeadLine;
 
 class PiyasalarProvider extends ChangeNotifier {
-  List<HeadLine.Item> piyasalar = List<HeadLine.Item>();
+  List<HeadLine.Item> piyasalar = [];
   Future<List<HeadLine.Item>> getPiyasalar() async {
     try {
       HeadLine.Headline post =

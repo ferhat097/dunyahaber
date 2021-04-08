@@ -95,9 +95,7 @@ class _PublisherState extends State<Publisher> {
                           borderRadius: BorderRadius.circular(5),
                           onTap: () {
                             Provider.of<MainProvider>(context, listen: false)
-                                .globalKey
-                                .currentState
-                                .open(direction: InnerDrawerDirection.end);
+                                .bottomnavigate(17);
                           },
                           child: SizedBox(
                             height: 25,

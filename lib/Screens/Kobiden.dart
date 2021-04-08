@@ -105,9 +105,7 @@ class _KobidenState extends State<Kobiden> {
                           borderRadius: BorderRadius.circular(5),
                           onTap: () {
                             Provider.of<MainProvider>(context, listen: false)
-                                .globalKey
-                                .currentState
-                                .open(direction: InnerDrawerDirection.end);
+                                .bottomnavigate(17);
                           },
                           child: SizedBox(
                             height: 25,
@@ -173,6 +171,7 @@ class _KobidenState extends State<Kobiden> {
                                                   MaterialPageRoute(
                                                     builder: (context) =>
                                                         DetailPage(
+                                                           type: 'Kobiden Haberleri',
                                                       skip: value.skip,
                                                       index: index,
                                                       list: value.aa,

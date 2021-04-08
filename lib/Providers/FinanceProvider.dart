@@ -20,7 +20,7 @@ class FinanceProvider extends ChangeNotifier {
   Future<List<Item>> getFinanceNews() async {
     try {
       Posts posts = await DunyaApiManager()
-          .getPostsFromCatagoryIDWithPagination(finans, 0, 10);
+          .getPostsFromCatagoryIDWithPagination(finans, 0, 5);
       if (posts != null) {
         financeNews.clear();
 
@@ -34,10 +34,10 @@ class FinanceProvider extends ChangeNotifier {
   }
 
   Future<List<Item>> getMoreFinanceNews() async {
-    skipfinance = skipfinance + 10;
+    skipfinance = skipfinance + 5;
     try {
       Posts posts = await DunyaApiManager()
-          .getPostsFromCatagoryIDWithPagination(finans, skipfinance, 10);
+          .getPostsFromCatagoryIDWithPagination(finans, skipfinance, 5);
       if (posts != null) {
         financeNews.addAll(posts.data.items);
 
@@ -55,7 +55,7 @@ class FinanceProvider extends ChangeNotifier {
     skipfinance = 0;
     try {
       Posts posts = await DunyaApiManager()
-          .getPostsFromCatagoryIDWithPagination(finans, 0, 10);
+          .getPostsFromCatagoryIDWithPagination(finans, 0, 5);
 
       if (posts != null) {
         financeNews.clear();

@@ -109,10 +109,8 @@ class _IGAnewsState extends State<IGAnews> {
                         child: InkWell(
                           borderRadius: BorderRadius.circular(5),
                           onTap: () {
-                            Provider.of<MainProvider>(context, listen: false)
-                                .globalKey
-                                .currentState
-                                .open(direction: InnerDrawerDirection.end);
+                             Provider.of<MainProvider>(context, listen: false)
+                                .bottomnavigate(17);
                           },
                           child: SizedBox(
                             height: 25,
@@ -175,6 +173,7 @@ class _IGAnewsState extends State<IGAnews> {
                                                   MaterialPageRoute(
                                                     builder: (context) =>
                                                         DetailPage(
+                                                           type: 'IGA Haberleri',
                                                       skip: value.skip,
                                                       index: index,
                                                       list: value.iGAnews,

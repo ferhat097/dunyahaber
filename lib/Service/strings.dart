@@ -1,3 +1,5 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
+
 class Strings {
   // ignore: non_constant_identifier_names
   static final String news_url =
@@ -19,4 +21,8 @@ class Strings {
   static final a6monthlyPeriod = '6months';
   static final yearlyPeriod = 'yearly';
   static final a5yearlyPeriod = '5years';
+
+  // static Future<void> backgroundMessage(RemoteMessage message) {
+  //   print('object');
+  // }
 }

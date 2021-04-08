@@ -15,6 +15,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'Search.dart';
+import '../Models/post_item.dart' as Post;
 
 class SavedNews extends StatefulWidget {
   @override
@@ -148,28 +149,13 @@ class _SavedNewsState extends State<SavedNews> {
                                         Stack(
                                           children: [
                                             ClipRRect(
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(5),
-                                                topRight: Radius.circular(5),
-                                              ),
-                                              child: CachedNetworkImage(
-                                                imageBuilder:
-                                                    (context, imageProvider) {
-                                                  return Image(
-                                                      image: imageProvider);
-                                                },
-                                                imageUrl:
-                                                    value.getAt(index).imageUrl,
-                                                placeholder: (context, string) {
-                                                  return Container(
-                                                    color: Colors.grey[100],
-                                                  );
-                                                },
-                                                errorWidget:
-                                                    (context, url, error) =>
-                                                        Icon(Icons.error),
-                                              ),
-                                            ),
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(5),
+                                                  topRight: Radius.circular(5),
+                                                ),
+                                                child: Image.network(value
+                                                    .getAt(index)
+                                                    .imageUrl)),
                                             Positioned(
                                               right: 15,
                                               top: 5,
@@ -435,59 +421,9 @@ class _SavedNewsState extends State<SavedNews> {
                               );
                             },
                             openBuilder: (context, action) {
-                              return Scaffold(
-                                backgroundColor: Color(0xFF131A20),
-                                appBar: AppBar(
-                                  brightness: Brightness.dark,
-                                  backgroundColor: Color(0xFF131A20),
-                                  title: Text(
-                                    value.getAt(index).title,
-                                    maxLines: 3,
-                                  ),
-                                ),
-                                body: SafeArea(
-                                  child: SingleChildScrollView(
-                                    child: Column(
-                                      children: [
-                                        Image.network(
-                                            value.getAt(index).imageUrl),
-                                        Container(
-                                          color: Colors.grey[100],
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Column(
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 5),
-                                                  child: Text(
-                                                    value.getAt(index).summary,
-                                                    style: TextStyle(
-                                                        fontSize: 18,
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.w800),
-                                                  ),
-                                                ),
-                                                Html(
-                                                  data: value
-                                                      .getAt(index)
-                                                      .contentHtml,
-                                                  shrinkWrap: true,
-                                                  style: {
-                                                    'body': Style(
-                                                        fontSize: FontSize(17))
-                                                  },
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
+                              return OpenDetail(
+                                value: value,
+                                index: index,
                               );
                             },
                           );
@@ -520,6 +456,215 @@ class _SavedNewsState extends State<SavedNews> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class OpenDetail extends StatefulWidget {
+  final Box<SavedPost> value;
+  final int index;
+  const OpenDetail({
+    Key key,
+    this.value,
+    this.index,
+  }) : super(key: key);
+
+  @override
+  _OpenDetailState createState() => _OpenDetailState();
+}
+
+class _OpenDetailState extends State<OpenDetail> {
+  double fontsize = 17;
+  String link;
+  String title;
+  String id;
+  Post.Post post;
+  changefontsize(index, bool incr) {
+    setState(() {
+      if (incr) {
+        fontsize = fontsize + index;
+      } else {
+        fontsize = fontsize - index;
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color(0xFF131A20),
+      appBar: AppBar(
+        titleSpacing: 0,
+        automaticallyImplyLeading: false,
+        brightness: Brightness.dark,
+        backgroundColor: Color(0xFF131A20),
+        title: PreferredSize(
+          preferredSize: Size(double.infinity, 45),
+          child: GestureDetector(
+            onPanUpdate: (pan) {
+              if (pan.delta.dy > 0) {
+                Navigator.pop(context);
+              }
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      SizedBox(
+                        height: 25,
+                        width: 25,
+                        child: Hero(
+                          tag: 'dot',
+                          child: Material(
+                            color: Colors.transparent,
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: Icon(Icons.arrow_back_rounded,
+                                  size: 25, color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 4, left: 10),
+                        child: Hero(
+                          tag: 'dunya',
+                          child: Container(
+                            height: 45,
+                            width: 100,
+                            child: AspectRatio(
+                              aspectRatio: 4 / 2,
+                              child: Image.asset('assets/logo.png'),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  Row(
+                    children: [
+                      Material(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.transparent,
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(20),
+                          onTap: () {},
+                          child: ValueListenableBuilder<Box<SavedPost>>(
+                            valueListenable:
+                                Hive.box<SavedPost>('posts').listenable(),
+                            builder: (context, Box<SavedPost> box, child) =>
+                                FocusedMenuHolder(
+                              animateMenuItems: true,
+                              openWithTap: true,
+                              onPressed: () {},
+                              menuItems: <FocusedMenuItem>[
+                                // Add Each FocusedMenuItem  for Menu Options
+                                FocusedMenuItem(
+                                  backgroundColor: Colors.amber,
+                                  title: Text("Paylaş"),
+                                  trailingIcon: Icon(Icons.share),
+                                  onPressed: () {
+                                    share(
+                                      context,
+                                      link,
+                                      title,
+                                    );
+                                  },
+                                ),
+                                FocusedMenuItem(
+                                    title: Text("Yazı boyutunu büyüt"),
+                                    trailingIcon: Icon(Icons.add_circle),
+                                    onPressed: () {
+                                      return changefontsize(2, true);
+                                    }),
+                                FocusedMenuItem(
+                                  title: Text("Yazı boyutunu küçült"),
+                                  trailingIcon: Icon(Icons.remove_circle),
+                                  onPressed: () {
+                                    return changefontsize(2, false);
+                                  },
+                                ),
+                              ],
+                              child: Material(
+                                color: Colors.transparent,
+                                child: InkWell(
+                                  child: Hero(
+                                    tag: 'fav',
+                                    child: SizedBox(
+                                        height: 35,
+                                        width: 35,
+                                        child: Icon(
+                                          Icons.more_horiz,
+                                          color: Colors.white,
+                                          size: 22,
+                                        )),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Image.network(widget.value.getAt(widget.index).imageUrl),
+              Container(
+                color: Colors.grey[100],
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 5),
+                        child: Text(
+                          widget.value.getAt(widget.index).title,
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.red,
+                              fontWeight: FontWeight.w800),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 5),
+                        child: Text(
+                          widget.value.getAt(widget.index).summary,
+                          style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w700),
+                        ),
+                      ),
+                      Html(
+                        data: widget.value.getAt(widget.index).contentHtml,
+                        shrinkWrap: true,
+                        style: {'body': Style(fontSize: FontSize(17))},
+                      )
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }

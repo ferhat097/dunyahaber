@@ -108,10 +108,8 @@ class _EMercekState extends State<EMercek> {
                         child: InkWell(
                           borderRadius: BorderRadius.circular(5),
                           onTap: () {
-                            Provider.of<MainProvider>(context, listen: false)
-                                .globalKey
-                                .currentState
-                                .open(direction: InnerDrawerDirection.end);
+                          Provider.of<MainProvider>(context, listen: false)
+                                .bottomnavigate(17);
                           },
                           child: SizedBox(
                             height: 25,

@@ -18,6 +18,7 @@ class DetailProvider extends ChangeNotifier {
   String newsid;
   IndexController controllerindex = IndexController();
   List<Item> news = [];
+  List<Item> addedNews = [];
   List<Post> post = [];
   List<HeadLine.Item> newsHead = [];
   List<Author.Item> authors = [];
@@ -34,6 +35,7 @@ class DetailProvider extends ChangeNotifier {
           .getPostsFromCatagoryIDWithPagination(newsid, skip, 5);
       if (a != null) {
         news.addAll(a.data.items);
+        addedNews = a.data.items;
         skip = skip + 5;
       }
       more = true;
@@ -45,11 +47,12 @@ class DetailProvider extends ChangeNotifier {
   }
 
   void setfirstpost(List<dynamic> list, int skipdata, String id, String type) {
-    if (type == 'headline') {
+    if (type == 'headline' && type != null) {
       newsHead = list;
     } else if (type == 'author') {
       authors = list;
     } else {
+      print('setfirstpost - ok');
       news = list;
       skip = skipdata + 5;
       newsid = id;
@@ -69,15 +72,20 @@ class DetailProvider extends ChangeNotifier {
       DateTime dateTime;
       int diffrence;
       Post singleNews = await DunyaApiManager().getPost(id.id);
-      await initializeDateFormatting('tr_TR', null).then((_) {
-        var dateapi = singleNews.data.publishedAt;
-        //final dateAsString = '10 Mart 2021 16:38';
-        final format = new DateFormat('dd MMMM yyyy HH:mm', 'tr_TR');
-        dateTime = format.parse(dateapi);
-        DateTime now = DateTime.now();
-        diffrence = now.difference(dateTime).inMinutes;
-        ////print(diffrence);
-      });
+      try {
+        await initializeDateFormatting('tr_TR', null).then((_) {
+          var dateapi = singleNews.data.publishedAt;
+          //final dateAsString = '10 Mart 2021 16:38';
+          final format = new DateFormat('dd MMMM yyyy HH:mm', 'tr_TR');
+          dateTime = format.parse(dateapi);
+          DateTime now = DateTime.now();
+          diffrence = now.difference(dateTime).inMinutes;
+          ////print(diffrence);
+        });
+      } catch (e) {
+        print(e);
+      }
+
       singleNews.data.dateTime = dateTime;
       singleNews.data.diffrence = diffrence;
       post.add(singleNews);
@@ -102,9 +110,4 @@ class DetailProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-
-  int currentpage = 0;
-  changesearch() {}
-  goback() {}
-  changetoall(index) {}
 }

@@ -125,30 +125,36 @@ class _FinanceState extends State<Finance> with SingleTickerProviderStateMixin {
         children: [
           Row(
             children: [
-              SizedBox(
-                height: 45,
-                width: 45,
-                child: Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    onTap: () {
-                      Provider.of<MainProvider>(context, listen: false)
-                          .globalKey
-                          .currentState
-                          .open(direction: InnerDrawerDirection.start);
-                    },
-                    child: Image.asset('assets/dot.png'),
+              Hero(
+                tag: 'dot',
+                child: SizedBox(
+                  height: 45,
+                  width: 45,
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: () {
+                        Provider.of<MainProvider>(context, listen: false)
+                            .globalKey
+                            .currentState
+                            .open(direction: InnerDrawerDirection.start);
+                      },
+                      child: Image.asset('assets/dot.png'),
+                    ),
                   ),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 4),
-                child: Container(
-                  height: 45,
-                  width: 100,
-                  child: AspectRatio(
-                    aspectRatio: 4 / 2,
-                    child: Image.asset('assets/logo.png'),
+                child: Hero(
+                  tag: 'dunya',
+                  child: Container(
+                    height: 45,
+                    width: 100,
+                    child: AspectRatio(
+                      aspectRatio: 4 / 2,
+                      child: Image.asset('assets/logo.png'),
+                    ),
                   ),
                 ),
               ),
@@ -192,14 +198,15 @@ class _FinanceState extends State<Finance> with SingleTickerProviderStateMixin {
                     borderRadius: BorderRadius.circular(5),
                     onTap: () {
                       Provider.of<MainProvider>(context, listen: false)
-                          .globalKey
-                          .currentState
-                          .open(direction: InnerDrawerDirection.end);
+                          .bottomnavigate(17);
                     },
-                    child: SizedBox(
-                      height: 25,
-                      width: 25,
-                      child: Image.asset('assets/fav.png'),
+                    child: Hero(
+                      tag: 'fav',
+                      child: SizedBox(
+                        height: 25,
+                        width: 25,
+                        child: Image.asset('assets/fav.png'),
+                      ),
                     ),
                   ),
                 ),
@@ -354,8 +361,8 @@ class _HaberState extends State<Haber> with AutomaticKeepAliveClientMixin {
           future: Provider.of<FinanceProvider>(context, listen: false)
               .getFinanceNews(),
           builder: (context, snapshot) {
-            List<CurrentRate> currentRate =
-                Provider.of<MainProvider>(context, listen: false).currentRate;
+            // List<CurrentRate> currentRate =
+            //     Provider.of<MainProvider>(context, listen: false).currentRate;
             if (snapshot.hasData) {
               return NotificationListener<ScrollNotification>(
                 // ignore: missing_return
@@ -384,14 +391,23 @@ class _HaberState extends State<Haber> with AutomaticKeepAliveClientMixin {
                               padding: const EdgeInsets.all(8.0),
                               child: GestureDetector(
                                 onTap: () {
+                                   List<CurrentRate> currentRate =
+                Provider.of<MainProvider>(context, listen: false).currentRate;
+                                  print(value.skipfinance);
+                                  print(index);
+                                  print(value.financeNews.length);
+                                  //print(currentRate.length);
+                                  print(value.finans);
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => DetailPage(
+                                        type: 'Finans Haberleri',
                                         skip: value.skipfinance,
                                         index: index,
                                         list: value.financeNews,
                                         currentRate: currentRate,
+                                        newsid: value.finans,
                                       ),
                                     ),
                                   );
@@ -413,10 +429,12 @@ class _HaberState extends State<Haber> with AutomaticKeepAliveClientMixin {
                                                     width: double.infinity,
                                                     child: FittedBox(
                                                       fit: BoxFit.fill,
-                                                      child: Image.network(value
-                                                          .financeNews[index]
-                                                          .image
-                                                          .url),
+                                                      child: Image.network(
+                                                          value
+                                                              .financeNews[
+                                                                  index]
+                                                              .image
+                                                              .url),
                                                     ),
                                                   ),
                                                   Positioned(
@@ -443,21 +461,18 @@ class _HaberState extends State<Haber> with AutomaticKeepAliveClientMixin {
                                                                           index]
                                                                       .diffrence >
                                                                   1
-                                                              ? value
-                                                                          .financeNews[
-                                                                              index]
+                                                              ? value.financeNews[index]
                                                                           .diffrence <
                                                                       1440
-                                                                  ? value.financeNews[index]
-                                                                              .diffrence <
-                                                                          60
+                                                                  ? value.financeNews[index].diffrence < 60
                                                                       ? '${DateTime.now().difference(value.financeNews[index].dateTime).inMinutes.toString()} dakika önce'
                                                                       : '${DateTime.now().difference(value.financeNews[index].dateTime).inHours.toString()} saat önce'
                                                                   : '${DateTime.now().difference(value.financeNews[index].dateTime).inDays.toString()} gün önce'
                                                               : 'Şimdi',
                                                           style: TextStyle(
                                                             fontSize: 12,
-                                                            color: Colors.white,
+                                                            color:
+                                                                Colors.white,
                                                           ),
                                                         ),
                                                       ),
